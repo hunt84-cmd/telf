@@ -72,10 +72,28 @@
                 </ul>
                 
                 <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <span class="navbar-text">
-                            <i class="fas fa-user me-1"></i>Administrador
-                        </span>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown">
+                            <i class="fas fa-user-circle me-1"></i>
+                            {{ Auth::user()->name }}
+                            <span class="badge bg-{{ Auth::user()->role === 'admin' ? 'danger' : 'primary' }} ms-1">
+                                {{ Auth::user()->role_name }}
+                            </span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li>
+                                <a class="dropdown-item" href="{{ route('profile') }}">
+                                    <i class="fas fa-user me-2"></i>Mi Perfil
+                                </a>
+                            </li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li>
+                                <a class="dropdown-item text-danger" href="{{ route('logout') }}"
+                                   onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                    <i class="fas fa-sign-out-alt me-2"></i>Cerrar Sesión
+                                </a>
+                            </li>
+                        </ul>
                     </li>
                 </ul>
             </div>
@@ -186,5 +204,10 @@
     </script>
     
     @stack('scripts')
+    
+    <!-- Logout Form -->
+    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+        @csrf
+    </form>
 </body>
 </html>

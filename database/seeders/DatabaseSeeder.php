@@ -16,6 +16,11 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        // Crear usuarios primero
+        $this->call([
+            UserSeeder::class,
+        ]);
+        
         // Crear emisoras de ejemplo
         $emisoras = [
             [
